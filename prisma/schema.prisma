@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity", "interactiveTransactions"]
+}
+
+datasource db {
+  provider             = "mysql"
+  url                  = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model User {
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  name        String
+  password    String
+  phone       String?     @unique
+  avatar      String?
+  gender      Gender?
+  loginMethod LoginMethod
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+enum LoginMethod {
+  EMAIL
+  NAVER
+  KAKAO
+  FACEBOOK
+  APPLE
+  OTHERS
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
