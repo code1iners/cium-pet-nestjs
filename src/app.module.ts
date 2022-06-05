@@ -12,6 +12,7 @@ const envFilePath = `.env.${process.env.NODE_ENV}`;
   imports: [
     ConfigModule.forRoot({
       envFilePath,
+      ignoreEnvFile: process.env.NODE_ENV === 'production',
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
