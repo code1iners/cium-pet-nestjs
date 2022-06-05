@@ -6,10 +6,12 @@ import { DatabaseModule } from './database/database.module';
 import { join } from 'path';
 import { ConfigModule } from '@nestjs/config';
 
+const envFilePath = `.env.${process.env.NODE_ENV}`;
+
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.local'],
+      envFilePath,
     }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
